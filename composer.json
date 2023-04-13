@@ -1,0 +1,20 @@
+{
+    "name": "bs-1127/cms",
+    "require-dev": {
+        "phpmailer/phpmailer": "^6.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bs1127\\Cms\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "samuel muabia"
+        }
+    ],
+    "require": {
+        "pusher/pusher-php-server": "^7.2",
+        "vlucas/phpdotenv": "^5.5"
+    }
+}
