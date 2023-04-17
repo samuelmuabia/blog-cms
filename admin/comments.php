@@ -47,8 +47,8 @@
             $delete_comment_id = $_GET['delete'];
             $delete_comment_query = "Delete from comments where comment_id = {$delete_comment_id}";
             $delete_comment_query_execute = mysqli_query($connection, $delete_comment_query);
-            // header('location:comments.php');
-            echo "<script>window.location.href ='comments.php'</script>";
+            header('location:comments.php');
+
 
         }
 
@@ -57,8 +57,8 @@
             $approve_comment_id = $_GET['approve'];
             $approve_comment_query = "UPDATE comments set comment_status = 'approved' where comment_id = {$approve_comment_id}";
             $approve_comment_query_execute = mysqli_query($connection, $approve_comment_query);
-            // header('location:comments.php');
-            echo "<script>window.location.href ='comments.php'</script>";
+            header('location:comments.php');
+
 
         }
         if (isset($_GET['disapprove'])) {
@@ -66,8 +66,8 @@
             $disapprove_comment_id = $_GET['disapprove'];
             $disapprove_comment_query = "UPDATE comments set comment_status = 'disapproved' where comment_id = {$disapprove_comment_id}";
             $disapprove_comment_query_execute = mysqli_query($connection, $disapprove_comment_query);
-            // header('location:comments.php');
-            echo "<script>window.location.href ='comments.php'</script>";
+            header('location:comments.php');
+
 
         }
 

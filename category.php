@@ -54,14 +54,14 @@
                         <a class="text-decoration-none" href="/cms/post/<?php echo $post_id ?>"><?php echo $post_title ?></a>
                     </h2>
                     <p class="lead">
-                        by <a class="text-decoration-none" href="index.php"><?php echo $post_author ?></a>
+                    by <a class="text-decoration-none" href="/cms/author_post.php?author_name=<?php echo  $post_author ?>&post_id=<?php echo  $post_id ?>"><?php echo  $post_author ?></a>
                     </p>
                     <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date ?></p>
                     <hr>
                     <a href="post.php?post_id=<?php echo $post_id ?>"><img class="img-fluid" src="/cms/images/<?php echo $post_image ?>" alt=""></a>
                     <hr>
                     <p><?php echo $post_content ?></p>
-                    <a class="btn btn-primary" href="post.php?post_id=<?php echo $post_id ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <a class="btn btn-primary" href="/cms/post.php?post_id=<?php echo $post_id ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                     <hr>
             <?php

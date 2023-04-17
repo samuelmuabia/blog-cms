@@ -1,4 +1,5 @@
-<?php include('includes/header.php') ?>
+<?php 
+include('includes/header.php') ?>
 <?php include('includes/navbar.php') ?>
 
 <main class="p-2">
@@ -49,14 +50,16 @@
             $delete_post_id = $_GET['delete'];
             $delete_post_query = "Delete from posts where post_id = {$delete_post_id}";
             $delete_post_query_execute = mysqli_query($connection, $delete_post_query);
-            header('location:posts.php');
+
+            header("Location: posts.php");
         }
         if (isset($_GET['reset'])) {
 
             $reset_view_post_id = $_GET['reset'];
             $reset_view_post_query = "UPDATE posts set post_views_count = 0 where post_id = {$reset_view_post_id}";
             $reset_view_post_query_execute = mysqli_query($connection, $reset_view_post_query);
-            header('location:posts.php');
+         
+            header("Location: posts.php");
         }
 
 

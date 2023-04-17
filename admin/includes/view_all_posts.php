@@ -126,19 +126,3 @@ if (isset($_POST['checkBoxArray'])) {
     </div>
 </form>
 
-<!-- Modal Html -->
-<!--   <td><a  rel='{$post_id}' href='javascript:void(0)'class='delete_link btn btn-danger' class='delete_link' >
-                            Delete
-                            </a></td> -->
-<!-- Modal Script -->
-<!-- <script>
-    $(document).ready(function() {
-        $(".delete_link").on('click', function() {
-            var id = $(this).attr("rel");
-            var deleteURL = "posts.php?delete=" + id + " ";
-            // alert(deleteURL);
-            $(".modal_delete_link").attr("href", deleteURL);
-            $("#myModal").modal('show');
-        });
-    });
-</script> -->

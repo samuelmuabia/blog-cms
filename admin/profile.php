@@ -24,11 +24,6 @@ if (isset($_POST['update_profile'])) {
 	$user_email = $_POST['user_email'];
 	$password = $_POST['user_password'];
 	$user_date = date('Y-m-d');
-
-	// $select_rand_salt = "SELECT randSalt from users";
-	// $select_rand_salt_execute = mysqli_query($connection, $select_rand_salt);
-	// $select_rand_salt_results = mysqli_fetch_array($select_rand_salt_execute);
-	// $rand_salt = $select_rand_salt_results['randSalt'];
 	if ($password != $user_password) {
 		$password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
 		$update_user_query = "update `users` set `username`= '{$username}', `user_firstname`='{$user_firstname}', `user_lastname`='{$user_lastname}', `user_date`= '{$user_date}' , `user_role`='{$user_role}', `user_email`='{$user_email}', `user_password`='{$password}' where user_id={$update_user_id}";
@@ -55,7 +50,7 @@ if (isset($_POST['update_profile'])) {
 						<h5 class="card-title mb-0">Profile Details</h5>
 					</div>
 					<div class="card-body text-center">
-						<img src="img/avatars/avatar-4.jpg" alt="" class="img-fluid rounded-circle mb-2" width="128" height="128" />
+						<img src="img/avatars/avatar.jpg" alt="" class="img-fluid rounded-circle mb-2" width="128" height="128" />
 						<h5 class="card-title mb-0"></h5>
 						<div class="text-muted mb-2"><?php echo $user_role ?></div>
 						<div class="text-muted mb-2"><?php echo $user_firstname . $user_lastname ?></div>

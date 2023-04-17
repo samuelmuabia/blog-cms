@@ -46,6 +46,8 @@ function insertCategories()
             mysqli_stmt_execute($stmt);
            
         }
+        header('location:categories.php');
+
     }
 }
 function deleteCategories()
@@ -55,15 +57,12 @@ function deleteCategories()
         $delete_category_id = $_GET['delete'];
         $delete_category_query = "Delete from categories where cat_id = {$delete_category_id}";
         $delete_category_query_execute = mysqli_query($connection, $delete_category_query);
-        echo "<script>window.location.href ='categories.php'</script>";
 
-        // header('location:categories.php');
+        header('location:categories.php');
     }
 ?>
 
-    <!-- <div class="alert alert-success">
-        <p>Category has been deleted <strong>Successfully</strong> ?></p>
-    </div> -->
+
 <?php
 }
 
@@ -128,7 +127,6 @@ function updateCategories()
         mysqli_stmt_bind_param($stmt,'si',$updated_category_title,$updated_category_id);
         mysqli_stmt_execute($stmt);
 
-        echo "<script>window.location.href ='categories.php'</script>";
     }
 }
 

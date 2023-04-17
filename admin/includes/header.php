@@ -1,4 +1,7 @@
-<?php include('functions.php') ?>
+<?php
+ob_start();
+include('functions.php');
+?>
 
 <?php include('../includes/db.php') ?>
 <?php session_start();
@@ -6,9 +9,8 @@ if (isset($_SESSION['user_role'])) {
   if ($_SESSION['user_role'] !== 'Admin') {
     header('location:../index');
   }
-}else{
+} else {
   header('location:../index');
-
 }
 
 
