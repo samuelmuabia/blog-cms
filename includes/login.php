@@ -7,13 +7,7 @@ if(isset($_POST['login'])){
     $username = $_POST['username'];
     $password = $_POST['password'];
     $username = mysqli_real_escape_string($connection , $username);
-    $password = mysqli_real_escape_string($connection , $password);
-    $select_rand_salt = "SELECT randSalt from users";
-    $select_rand_salt_execute = mysqli_query($connection, $select_rand_salt);
-    $select_rand_salt_results = mysqli_fetch_array($select_rand_salt_execute);
-    $rand_salt = $select_rand_salt_results['randSalt'];
-    // $password = password_hash($password,PASSWORD_BCRYPT, array('cost'=> 12));
-    
+    $password = mysqli_real_escape_string($connection , $password);   
     $check_query = "SELECT * FROM users where username='{$username}'";
     $check_query_execute = mysqli_query($connection,$check_query);
     $check_query_result = mysqli_num_rows($check_query_execute);
@@ -35,14 +29,18 @@ if(isset($_POST['login'])){
         if($user_role==='Admin'){
             header('location:../admin');
         }
+        else{
+            header('location:../index');
+
+        }
 
     }
     else{
-        // header('location:../index.php');
+        header('location:../index');
     }
 }
 else{
-    header('location:../index.php');
+    header('location:../index');
 }
         
     

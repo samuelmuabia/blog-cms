@@ -30,7 +30,7 @@
         } else {
         ?>
             <h4>Login</h4>
-            <form class="text-center" action="includes/login.php" method="post">
+            <form class="text-center" action="/cms/includes/login.php" method="post">
                 <div class="form-group mb-3">
                     <input name="username" placeholder="Enter Your Username" type="text" class="form-control">
                 </div>

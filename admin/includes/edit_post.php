@@ -59,7 +59,7 @@ if (isset($_POST['update_post'])) {
     </div>
     <div class="form-group">
         <label class="form-label" for="post_author">Post Author</label class="form-label">
-        <input type="text" class="form-control" name='post_author' value="<?php echo $post_author ?>">
+        <input type="text" class="form-control" name='post_author' value="<?php echo $post_author ?>" disabled>
     </div>
     <div class="form-group">
         <label class="form-label" for="post_category_id">Post Category ID</label class="form-label">

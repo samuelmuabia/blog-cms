@@ -82,18 +82,7 @@ function viewAllCategories()
             <td><a href='categories.php?delete={$category_id}' class='btn btn-danger'>Delete</a></td>
         </tr>";
     endwhile;
-    // $select_categories_query = "select * from categories";
-    // $select_categories_results = mysqli_query($connection, $select_categories_query);
-    // while ($category = mysqli_fetch_assoc($select_categories_results)) {
-    //     $category_id = $category['cat_id'];
-    //     $category_title = $category['cat_title'];
-    //     echo "<tr>
-    //         <td>{$category_id}</td>
-    //         <td>{$category_title}</td>
-    //         <td><a href='categories.php?edit={$category_id}' class='btn btn-warning'>Edit</a></td>
-    //         <td><a href='categories.php?delete={$category_id}' class='btn btn-danger'>Delete</a></td>
-    //     </tr>";
-    // }
+
 }
 
 function showUpdateCategoriesInputField()
@@ -121,22 +110,7 @@ function showUpdateCategoriesInputField()
     </form>
     <?php
     endwhile;?>
-    <!-- $search_category_query = "select `cat_title` from categories where cat_id ={$edit_category_id}";
-    $search_category_query_execute = mysqli_query($connection, $search_category_query);
-    $search_category_query_results = mysqli_fetch_assoc($search_category_query_execute);
-    $edit_category_title = $search_category_query_results['cat_title'];
-    ?>
-    <form action="" method="post">
-        <input type="text" name="edit_category_id" value="<?php echo $edit_category_id ?>" hidden>
-        <div class="form-group">
-            <label for="addcategory" class="form-label">Edit Category Title - <?php echo $edit_category_title ?></label>
-            <input type="text" name="edit_category_title" class="form-control" id="addcategory">
-        </div>
-        <div class="form-group">
-            <input class="btn btn-primary" type="submit" value="Update Category" name="edit_category_submit">
 
-        </div>
-    </form>'; -->
 <?php
     if (isset($_POST['edit_category_submit'])) {
         updateCategories();
@@ -153,13 +127,8 @@ function updateCategories()
         $stmt = mysqli_prepare($connection,"Update categories SET cat_title= ? where cat_id= ?");
         mysqli_stmt_bind_param($stmt,'si',$updated_category_title,$updated_category_id);
         mysqli_stmt_execute($stmt);
-        // $update_category_query = "Update categories SET cat_title ='{$updated_category_title}' where cat_id= '{$updated_category_id}'";
-        // $update_category_query_execute = mysqli_query($connection, $update_category_query);
-        // if ($update_category_query_execute) {
-        //     echo "Successfully Updated";
-        // }
+
         echo "<script>window.location.href ='categories.php'</script>";
-        // header('location:categories.php');
     }
 }
 

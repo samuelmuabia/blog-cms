@@ -247,7 +247,6 @@ $number_of_categories = mysqli_num_rows($number_of_categories_query_execute);
               $each_category_total_query = "Select * from posts where post_category_id={$category_id}";
               $each_category_total_query_execute = mysqli_query($connection, $each_category_total_query);
               $each_category_total = mysqli_num_rows($each_category_total_query_execute);
-              // echo "[".$category_title.", {v:".$each_category_total. ", f:'".$each_category_total."'}],";
               echo "['" . $category_title . "','" . $each_category_total . "'],";
             }
 

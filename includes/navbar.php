@@ -6,7 +6,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <?php
+                <?php
                 $category_class = '';
                 $registration_class = '';
                 $contact_class = '';
@@ -30,27 +30,21 @@
                     echo "<li class='nav-item'><a class='nav-link {$category_class}' href='/cms/category/{$category_id}'>{$category_title}</a></li>";
                 }
 
-                if (isset($_SESSION['user_role'])) {
-                    if ($_SESSION['user_role'] !== 'Admin') {
-                        echo " <li class='nav-item'><a class='nav-link' href='admin/posts.php'>Edit Posts</a></li>";
-                    }
-                }
                 if (isset($_SESSION['user_id'])) {
 
                     $user_role = $_SESSION['user_role'];
-                    if ($user_role == 'Admin') {
-              
-              echo "<li class='nav-item' ><a class='nav-link' href='/cms/admin'>Admin</a></li>";
+                    if ($user_role === 'Admin') {
+
+                        echo "<li class='nav-item' ><a class='nav-link' href='/cms/admin'>Admin</a></li>";
                         echo " <li class='nav-item'><a class='nav-link' href='/cms/admin/posts.php'>Manage Posts</a></li>";
+
                         if (isset($_GET['post_id'])) {
                             $post_id = $_GET['post_id'];
                             echo " <li class='nav-item'><a class='nav-link' href='/cms/admin/posts.php?source=edit_post&edit={$post_id}'>Edit Post</a></li>";
                         }
                     }
-                }
-                else{
+                } else {
                     echo "<li class='nav-item' ><a class='nav-link disabled' href='/cms/admin'>Admin</a></li>";
-
                 }
                 if ($pageName == $registration) {
                     $registration_class = 'active';
@@ -60,8 +54,8 @@
                     $home_class = 'active';
                 }
                 ?>
-              <li class="nav-item "><a class="nav-link <?php echo $registration_class ?>" href='/cms/registration'>Registration</a></li>
-              <li class="nav-item "><a class="nav-link <?php echo $contact_class ?>" href='/cms/contact'>Contact</a></li>
+                <li class="nav-item "><a class="nav-link <?php echo $registration_class ?>" href='/cms/registration'>Registration</a></li>
+                <li class="nav-item "><a class="nav-link <?php echo $contact_class ?>" href='/cms/contact'>Contact</a></li>
 
             </ul>
             <form class="d-flex" role="search" action="./search.php" method="post">

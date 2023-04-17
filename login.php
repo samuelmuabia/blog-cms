@@ -3,23 +3,6 @@
 
 <?php
 
-// checkIfUserIsLoggedInAndRedirect('/cms/admin');
-
-
-// if(ifItIsMethod('post')){
-
-// 	if(isset($_POST['username']) && isset($_POST['password'])){
-
-// 		login_user($_POST['username'], $_POST['password']);
-
-
-// 	}else {
-
-
-// 		redirect('/cms/login.php');
-// 	}
-
-// }
 if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'Admin') {
 
     header('location:./admin');
@@ -51,6 +34,10 @@ if (isset($_POST['login'])) {
 
             if ($user_role === 'Admin') {
                 header('location:./admin');
+            }
+            else{
+                header('location:/cms/');
+
             }
         } else {
             header('location:/cms/login');

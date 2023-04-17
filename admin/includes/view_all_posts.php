@@ -80,7 +80,7 @@ if (isset($_POST['checkBoxArray'])) {
             </thead>
             <tbody>
                 <?php
-                $select_posts_query = "select * from posts order by post_id DESC";
+                $select_posts_query = "select * from posts order by post_id  DESC";
                 $select_posts_results = mysqli_query($connection, $select_posts_query);
                 while ($post = mysqli_fetch_assoc($select_posts_results)) {
                     $post_id = $post['post_id'];

@@ -1,8 +1,8 @@
 <?php
 if (isset($_POST['create_post'])) {
     $post_title = $_POST['post_title'];
-    $post_author = $_POST['post_author'];
-    $post_content = $_POST['post_content'];
+    $post_author = $_SESSION['username'];
+    $post_content = mysqli_real_escape_string($connection,$_POST['post_content']);
     $post_category_id = $_POST['post_category_id'];
     $post_status = $_POST['post_status'];
     $post_image = $_FILES['post_image']['name'];
@@ -38,24 +38,9 @@ if (isset($_POST['create_post'])) {
     </div>
     <div class="form-group">
         <label class="form-label pt-2" for="post_author">Post Author</label>
-        <input type="text" class="form-control" name='post_author'>
+        <input type="text" class="form-control" name='post_author' value="<?php echo $_SESSION['username'] ?>" disabled>
     </div>
-    <div class="form-group">
-        <label class="form-label pt-2" for="post_author">Post Users</label>
-        <select class="form-select" name="post_author" id="">
-            <?php
-            $select_users_query = "select * from users ";
-            $select_users_results = mysqli_query($connection, $select_users_query);
-            while ($user = mysqli_fetch_assoc($select_users_results)) {
-                $user_id = $user['user_id'];
-                $username = $user['username'];
-                echo "<option value='{$user_id}'>{$username}</option>
-                 "
-            ?>
-            <?php } ?>
-        </select>
 
-    </div>
     <div class="form-group">
         <label class="form-label pt-2" for="post_category_id">Post Category ID</label>
         <select class="form-select" name="post_category_id" id="">

@@ -44,7 +44,7 @@ if (isset($_POST['email'])) {
         $mail->setFrom('samuel.muabia@gmail.com', 'Samuel Muabia');
         $mail->addAddress($email);
 
-        $mail->Subject = 'This is a test email';
+        $mail->Subject = 'This is mail to reset your password';
 
         $mail->Body = '<p>Please click to reset your password
 
