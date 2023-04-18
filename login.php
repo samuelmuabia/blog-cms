@@ -3,16 +3,13 @@
 
 <?php
 
-if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'Admin') {
-    redirect('./admin');
-}
+checkIfUserIsLoggedInAndRedirect('./admin');
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $username = mysqli_real_escape_string($connection, $username);
     $password = mysqli_real_escape_string($connection, $password);
 
-    echo $password;
 
     $check_query = "SELECT * FROM users where username='{$username}'";
     $check_query_execute = mysqli_query($connection, $check_query);

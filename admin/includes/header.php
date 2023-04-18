@@ -6,7 +6,7 @@ include('functions.php');
 <?php include('../includes/db.php') ?>
 <?php session_start();
 if (isset($_SESSION['user_role'])) {
-  if ($_SESSION['user_role'] !== 'Admin') {
+  if (!isLoggedInAsAdmin()) {
     redirect('../index');
 
   }

@@ -1,16 +1,49 @@
 <?php
-function redirect($location){
+function redirect($location)
+{
 
 
     header("Location:" . $location);
     exit;
-
 }
 
-function escape($string){
+function escape($string)
+{
     global $connection;
-    return mysqli_real_escape_string($connection,trim($string));
+    return mysqli_real_escape_string($connection, trim($string));
 }
+function checkMethod($method = null)
+{
+
+    if ($_SERVER['REQUEST_METHOD'] == strtoupper($method)) {
+
+        return true;
+    }
+
+    return false;
+}
+
+function isLoggedInAsAdmin()
+{
+
+    if (isset($_SESSION['user_role']) && $_SESSION['user_role']=='Admin') {
+
+        return true;
+    }
+
+
+    return false;
+}
+
+function checkIfUserIsLoggedInAndRedirect($redirectLocation = null)
+{
+
+    if (isLoggedInAsAdmin()) {
+
+        redirect($redirectLocation);
+    }
+}
+
 function users_online()
 {
     if (isset($_GET['onlineusers'])) {
@@ -39,8 +72,55 @@ function confirmQuery($result)
 {
     if (!$result) {
         die('Query Failed' . mysqli_error($result));
+        return false;
     }
+    return true;
 }
+function login_user($username, $password)
+{
+
+    global $connection;
+
+    $username = escape($username);
+    $password = escape($password);
+
+
+    $query = "SELECT * FROM users WHERE username = '{$username}' ";
+    $select_user_query = mysqli_query($connection, $query);
+    if (confirmQuery($select_user_query)) {
+
+        while ($row = mysqli_fetch_array($select_user_query)) {
+
+            $db_user_id = $row['user_id'];
+            $db_username = $row['username'];
+            $db_user_password = $row['user_password'];
+            $db_user_firstname = $row['user_firstname'];
+            $db_user_lastname = $row['user_lastname'];
+            $db_user_role = $row['user_role'];
+
+
+            if (password_verify($password, $db_user_password)) {
+                $_SESSION['user_id'] = $db_user_id;
+                $_SESSION['username'] = $db_username;
+                $_SESSION['firstname'] = $db_user_firstname;
+                $_SESSION['lastname'] = $db_user_lastname;
+                $_SESSION['user_role'] = $db_user_role;
+                if ($db_user_role == 'Admin') {
+                    redirect("/cms/admin");
+                } else {
+                    return false;
+                }
+            } else {
+
+
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
 function insertCategories()
 {
     global $connection;
@@ -49,13 +129,11 @@ function insertCategories()
         if (!$category_title) {
             echo "It cannot be empty";
         } else {
-            $stmt = mysqli_prepare($connection,"insert into categories(`cat_title`) Value (?)");
-            mysqli_stmt_bind_param($stmt,'s',$category_title);
+            $stmt = mysqli_prepare($connection, "insert into categories(`cat_title`) Value (?)");
+            mysqli_stmt_bind_param($stmt, 's', $category_title);
             mysqli_stmt_execute($stmt);
-           
         }
         redirect('categories.php');
-
     }
 }
 function deleteCategories()
@@ -78,10 +156,10 @@ function viewAllCategories()
 {
     global $connection;
 
-    $stmt = mysqli_prepare($connection,"select cat_id,cat_title from categories");
+    $stmt = mysqli_prepare($connection, "select cat_id,cat_title from categories");
     mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt,$category_id,$category_title);
-    while(mysqli_stmt_fetch($stmt)):
+    mysqli_stmt_bind_result($stmt, $category_id, $category_title);
+    while (mysqli_stmt_fetch($stmt)) :
         echo "<tr>
             <td>{$category_id}</td>
             <td>{$category_title}</td>
@@ -89,7 +167,6 @@ function viewAllCategories()
             <td><a href='categories.php?delete={$category_id}' class='btn btn-danger'>Delete</a></td>
         </tr>";
     endwhile;
-
 }
 
 function showUpdateCategoriesInputField()
@@ -98,25 +175,25 @@ function showUpdateCategoriesInputField()
 ?>
     <?php
     $edit_category_id = $_GET['edit'];
-    $stmt = mysqli_prepare($connection,"select cat_title from categories where cat_id = ?");
-    mysqli_stmt_bind_param($stmt,'i',$edit_category_id);
+    $stmt = mysqli_prepare($connection, "select cat_title from categories where cat_id = ?");
+    mysqli_stmt_bind_param($stmt, 'i', $edit_category_id);
     mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt,$edit_category_title);
-    while(mysqli_stmt_fetch($stmt)):
-        ?>
+    mysqli_stmt_bind_result($stmt, $edit_category_title);
+    while (mysqli_stmt_fetch($stmt)) :
+    ?>
         <form action="" method="post">
-        <input type="text" name="edit_category_id" value="<?php echo $edit_category_id ?>" hidden>
-        <div class="form-group">
-            <label for="addcategory" class="form-label">Edit Category Title - <?php echo $edit_category_title ?></label>
-            <input type="text" name="edit_category_title" class="form-control" id="addcategory">
-        </div>
-        <div class="form-group">
-            <input class="btn btn-primary" type="submit" value="Update Category" name="edit_category_submit">
+            <input type="text" name="edit_category_id" value="<?php echo $edit_category_id ?>" hidden>
+            <div class="form-group">
+                <label for="addcategory" class="form-label">Edit Category Title - <?php echo $edit_category_title ?></label>
+                <input type="text" name="edit_category_title" class="form-control" id="addcategory">
+            </div>
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Update Category" name="edit_category_submit">
 
-        </div>
-    </form>
+            </div>
+        </form>
     <?php
-    endwhile;?>
+    endwhile; ?>
 
 <?php
     if (isset($_POST['edit_category_submit'])) {
@@ -131,14 +208,14 @@ function updateCategories()
     if (!$updated_category_title) {
         echo "It cannot be empty";
     } else {
-        $stmt = mysqli_prepare($connection,"Update categories SET cat_title= ? where cat_id= ?");
-        mysqli_stmt_bind_param($stmt,'si',$updated_category_title,$updated_category_id);
+        $stmt = mysqli_prepare($connection, "Update categories SET cat_title= ? where cat_id= ?");
+        mysqli_stmt_bind_param($stmt, 'si', $updated_category_title, $updated_category_id);
         mysqli_stmt_execute($stmt);
-
     }
 }
 
-function email_exists($email){
+function email_exists($email)
+{
 
     global $connection;
 
@@ -147,28 +224,12 @@ function email_exists($email){
     $result = mysqli_query($connection, $query);
     confirmQuery($result);
 
-    if(mysqli_num_rows($result) > 0) {
+    if (mysqli_num_rows($result) > 0) {
 
         return true;
-
     } else {
 
         return false;
-
     }
-
-
-
 }
 ?>
-
-
-
-
-
-
-
-
-
-
-

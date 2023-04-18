@@ -15,13 +15,12 @@
             if (isset($_GET['category_id'])) {
                 $category_id = $_GET['category_id'];
 
-                if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'Admin') {
+                if (isLoggedInAsAdmin()) {
                     $stmt1 = mysqli_prepare($connection, "SELECT post_id, post_title, post_author, post_date, post_image, post_content FROM posts WHERE post_category_id = ?");
                 } else {
                     $stmt2 = mysqli_prepare($connection, "SELECT post_id, post_title, post_author, post_date, post_image,post_content FROM posts WHERE post_category_id = ? AND post_status = ? ");
                     $published = 'published';
-                    // $select_posts_query = "select * from posts where post_category_id={$category_id} and post_status='pubLished'";
-                    // $select_posts_results = mysqli_query($connection, $select_posts_query);
+
                 }
                 if(isset($stmt1)){
                     mysqli_stmt_bind_param($stmt1,'i',$category_id);

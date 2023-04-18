@@ -47,18 +47,16 @@
 
         <?php
 
-        if (!isset($_SESSION['user_role'])) {
-            if ($_SESSION['user_role'] !== 'Admin') {
-                if (isset($_GET['delete'])) {
+        if (isLoggedInAsAdmin()) {
+            if (isset($_GET['delete'])) {
 
-                    $delete_user_id = $_GET['delete'];
-                    $delete_user_query = "Delete from users where user_id = {$delete_user_id}";
-                    $delete_user_query_execute = mysqli_query($connection, $delete_user_query);
-                    redirect('users.php');
-
-                }
+                $delete_user_id = $_GET['delete'];
+                $delete_user_query = "Delete from users where user_id = {$delete_user_id}";
+                $delete_user_query_execute = mysqli_query($connection, $delete_user_query);
+                redirect('users.php');
             }
         }
+
 
         if (isset($_GET['admin'])) {
 
