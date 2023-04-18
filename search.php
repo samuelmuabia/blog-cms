@@ -6,7 +6,6 @@
 <div class="container">
 
     <div class="row">
-
         <!-- Blog Entries Column -->
         <div class="col-md-8">
             <?php
@@ -27,13 +26,12 @@
                         $post_image = $post['post_image'];
                         $post_content = substr($post['post_content'], 0, 100);
                         $post_title = $post['post_title'];
-                        $post_title = $post['post_title'];
             ?>
                         <h2>
-                            <a class="text-decoration-none" href="post/<?php echo $post_id ?>"><?php echo $post_title ?></a>
+                            <a class="text-decoration-none" href="/cms/post/<?php echo $post_id ?>"><?php echo $post_title ?></a>
                         </h2>
                         <p class="lead">
-                            by <a class="text-decoration-none" href="author_post.php?author_name=<?php echo  $post_author ?>&post_id=<?php echo  $post_id ?>"><?php echo  $post_author ?></a>
+                            by <a class="text-decoration-none" href="/cms/author_post.php?author_name=<?php echo  $post_author ?>&post_id=<?php echo  $post_id ?>"><?php echo  $post_author ?></a>
                         </p>
                         <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date ?></p>
                         <hr>
@@ -47,21 +45,15 @@
             <?php
                     }
                 }
+            } else {
+                redirect('/cms/');
             }
             ?>
 
             <!-- First Blog Post -->
 
 
-            <!-- Pager -->
-            <ul class="pager">
-                <li class="previous">
-                    <a href="#">&larr; Older</a>
-                </li>
-                <li class="next">
-                    <a href="#">Newer &rarr;</a>
-                </li>
-            </ul>
+
 
         </div>
 

@@ -80,7 +80,7 @@ if (isset($_POST['checkBoxArray'])) {
             </thead>
             <tbody>
                 <?php
-                $select_posts_query = "select * from posts order by post_id  DESC";
+                $select_posts_query = "SELECT p.post_id,p.post_title,p.post_author,p.post_status,p.post_date,p.post_date,p.post_image,p.post_tags,p.post_views_count,c.cat_title from posts as p INNER JOIN categories as c ON p.post_category_id=c.cat_id order by post_id  DESC";
                 $select_posts_results = mysqli_query($connection, $select_posts_query);
                 while ($post = mysqli_fetch_assoc($select_posts_results)) {
                     $post_id = $post['post_id'];
@@ -94,11 +94,7 @@ if (isset($_POST['checkBoxArray'])) {
                     $comment_count_execute = mysqli_query($connection, $comment_count);
                     $post_comment = mysqli_num_rows($comment_count_execute);
                     $post_views_count = $post['post_views_count'];
-                    $post_category_id = $post['post_category_id'];
-                    $search_category_query = "select `cat_title` from categories where cat_id ={$post_category_id}";
-                    $search_category_query_execute = mysqli_query($connection, $search_category_query);
-                    $search_category_query_results = mysqli_fetch_assoc($search_category_query_execute);
-                    $post_category_title = $search_category_query_results['cat_title'];
+                    $post_category_title = $post['cat_title'];
 
                     echo "<tr>
                         <td><input type='checkbox' name='checkBoxArray[]' class='checkBoxes' value='{$post_id}'></td>

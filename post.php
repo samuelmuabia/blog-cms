@@ -105,13 +105,9 @@ if (isset($_POST['add_comment'])) {
             $select_comments_query = "select * from comments where comment_post_id = {$post_id} and comment_status='approved' ORDER BY comment_id DESC";
             $select_comments_results = mysqli_query($connection, $select_comments_query);
             while ($comment = mysqli_fetch_assoc($select_comments_results)) {
-                // $comment_id = $comment['comment_id'];
-                // $comment_post_id = $comment['comment_post_id'];
                 $comment_author = $comment['comment_author'];
                 $comment_content = $comment['comment_content'];
-                // $comment_email = $comment['comment_email'];
                 $comment_date = $comment['comment_date'];
-                // $comment_status = $comment['comment_status'];
             ?>
                 <div class="media">
                     <a class="pull-left" href="#">

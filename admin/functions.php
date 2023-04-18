@@ -26,7 +26,7 @@ function checkMethod($method = null)
 function isLoggedInAsAdmin()
 {
 
-    if (isset($_SESSION['user_role']) && $_SESSION['user_role']=='Admin') {
+    if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'Admin') {
 
         return true;
     }
@@ -76,6 +76,47 @@ function confirmQuery($result)
     }
     return true;
 }
+
+function username_exists($username)
+{
+
+    global $connection;
+
+    $query = "SELECT username FROM users WHERE username = '$username'";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+
+    if (mysqli_num_rows($result) > 0) {
+
+        return true;
+    } else {
+
+        return false;
+    }
+}
+
+
+
+function email_exists($email)
+{
+
+    global $connection;
+
+
+    $query = "SELECT user_email FROM users WHERE user_email = '$email'";
+    $result = mysqli_query($connection, $query);
+    confirmQuery($result);
+
+    if (mysqli_num_rows($result) > 0) {
+
+        return true;
+    } else {
+
+        return false;
+    }
+}
+
+
 function login_user($username, $password)
 {
 
@@ -214,22 +255,3 @@ function updateCategories()
     }
 }
 
-function email_exists($email)
-{
-
-    global $connection;
-
-
-    $query = "SELECT user_email FROM users WHERE user_email = '$email'";
-    $result = mysqli_query($connection, $query);
-    confirmQuery($result);
-
-    if (mysqli_num_rows($result) > 0) {
-
-        return true;
-    } else {
-
-        return false;
-    }
-}
-?>

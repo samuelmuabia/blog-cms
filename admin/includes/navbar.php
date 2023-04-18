@@ -1,17 +1,4 @@
-<?php 
 
-$category_class = '';
-$user_class = '';
-$posts_class = '';
-$dashboard_class = '';
-$pageName = basename($_SERVER['PHP_SELF']);
-$registration = 'registration.php';
-$contact = 'contact.php';
-$home = 'index.php';
-
-
-
-?>
 
 <nav id="sidebar" class="sidebar js-sidebar">
   <div class="sidebar-content js-simplebar">

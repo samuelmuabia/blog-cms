@@ -65,8 +65,8 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <?php
-                        if ($current_page == 1) {?>
-<?php 
+                        if ($current_page == 1) { ?>
+                        <?php
                             echo   "<li class='page-item disabled' >
                     <a class='page-link' href=''>&larr; Newer </a>
                 </li>";
@@ -102,7 +102,7 @@
 
 
                         ?>
-                        
+
                     </ul>
                 </nav>
             </div>
