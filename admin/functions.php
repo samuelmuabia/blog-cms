@@ -108,17 +108,17 @@ function login_user($username, $password)
                 if ($db_user_role == 'Admin') {
                     redirect("/cms/admin");
                 } else {
-                    return false;
+                    redirect("/cms/");
                 }
             } else {
 
 
-                return false;
+                redirect("/cms/");
             }
         }
     }
 
-    return true;
+    redirect("/cms/");
 }
 
 function insertCategories()
