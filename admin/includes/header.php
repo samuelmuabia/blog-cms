@@ -7,10 +7,11 @@ include('functions.php');
 <?php session_start();
 if (isset($_SESSION['user_role'])) {
   if ($_SESSION['user_role'] !== 'Admin') {
-    header('location:../index');
+    redirect('../index');
+
   }
 } else {
-  header('location:../index');
+  redirect('../index');
 }
 
 

@@ -1,4 +1,12 @@
 <?php
+function redirect($location){
+
+
+    header("Location:" . $location);
+    exit;
+
+}
+
 function escape($string){
     global $connection;
     return mysqli_real_escape_string($connection,trim($string));
@@ -46,7 +54,7 @@ function insertCategories()
             mysqli_stmt_execute($stmt);
            
         }
-        header('location:categories.php');
+        redirect('categories.php');
 
     }
 }
@@ -58,7 +66,7 @@ function deleteCategories()
         $delete_category_query = "Delete from categories where cat_id = {$delete_category_id}";
         $delete_category_query_execute = mysqli_query($connection, $delete_category_query);
 
-        header('location:categories.php');
+        redirect('categories.php');
     }
 ?>
 

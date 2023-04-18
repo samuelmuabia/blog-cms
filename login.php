@@ -4,8 +4,7 @@
 <?php
 
 if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'Admin') {
-
-    header('location:./admin');
+    redirect('./admin');
 }
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
@@ -33,18 +32,15 @@ if (isset($_POST['login'])) {
             $_SESSION['user_role'] = $user_role;
 
             if ($user_role === 'Admin') {
-                header('location:./admin');
-            }
-            else{
-                header('location:/cms/');
-
+                redirect('./admin');
+            } else {
+                redirect('/cms/');
             }
         } else {
-            header('location:/cms/login');
+            redirect('/cms/login');
         }
-    }
-    else {
-        header('location:/cms/login');
+    } else {
+        redirect('/cms/login');
     }
 }
 

@@ -2,8 +2,8 @@
 session_start();
 
 session_destroy();
+include('../admin/functions.php');
 
-
-header('location:../index.php');
+redirect('../index');
 
 ?>

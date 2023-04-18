@@ -6,13 +6,13 @@
     <!-- Navigation -->
 
     <div id="page-wrapper">
-<h1>Comments</h1>
+        <h1>Comments</h1>
         <div class="container-fluid">
 
             <!-- Page Heading -->
             <div class="row">
                 <div class="col-lg-12">
-                    
+
                     <?php
                     if (isset($_GET['source'])) {
                         $source = $_GET['source'];
@@ -22,7 +22,7 @@
                     switch ($source) {
 
                         case 'post_comment';
-                        include('includes/post_comments.php');
+                            include('includes/post_comments.php');
 
                             break;
 
@@ -47,9 +47,7 @@
             $delete_comment_id = $_GET['delete'];
             $delete_comment_query = "Delete from comments where comment_id = {$delete_comment_id}";
             $delete_comment_query_execute = mysqli_query($connection, $delete_comment_query);
-            header('location:comments.php');
-
-
+            redirect('comments.php');
         }
 
         if (isset($_GET['approve'])) {
@@ -57,18 +55,14 @@
             $approve_comment_id = $_GET['approve'];
             $approve_comment_query = "UPDATE comments set comment_status = 'approved' where comment_id = {$approve_comment_id}";
             $approve_comment_query_execute = mysqli_query($connection, $approve_comment_query);
-            header('location:comments.php');
-
-
+            redirect('comments.php');
         }
         if (isset($_GET['disapprove'])) {
 
             $disapprove_comment_id = $_GET['disapprove'];
             $disapprove_comment_query = "UPDATE comments set comment_status = 'disapproved' where comment_id = {$disapprove_comment_id}";
             $disapprove_comment_query_execute = mysqli_query($connection, $disapprove_comment_query);
-            header('location:comments.php');
-
-
+            redirect('comments.php');
         }
 
 

@@ -15,7 +15,7 @@ require './vendor/phpmailer/phpmailer/src/SMTP.php';
 $mail = new PHPMailer(true);
 
 if (!isset($_GET['forgot'])) {
-    header('location: index');
+    redirect('index');
 }
 
 if (isset($_POST['email'])) {

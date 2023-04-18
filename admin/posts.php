@@ -50,8 +50,7 @@ include('includes/header.php') ?>
             $delete_post_id = $_GET['delete'];
             $delete_post_query = "Delete from posts where post_id = {$delete_post_id}";
             $delete_post_query_execute = mysqli_query($connection, $delete_post_query);
-
-            header("Location: posts.php");
+            redirect('posts.php');
         }
         if (isset($_GET['reset'])) {
 
@@ -59,7 +58,7 @@ include('includes/header.php') ?>
             $reset_view_post_query = "UPDATE posts set post_views_count = 0 where post_id = {$reset_view_post_id}";
             $reset_view_post_query_execute = mysqli_query($connection, $reset_view_post_query);
          
-            header("Location: posts.php");
+            redirect('posts.php');
         }
 
 

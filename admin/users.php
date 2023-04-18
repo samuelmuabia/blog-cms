@@ -54,7 +54,8 @@
                     $delete_user_id = $_GET['delete'];
                     $delete_user_query = "Delete from users where user_id = {$delete_user_id}";
                     $delete_user_query_execute = mysqli_query($connection, $delete_user_query);
-                    header('location:users.php');
+                    redirect('users.php');
+
                 }
             }
         }
@@ -64,16 +65,14 @@
             $change_role_user_id = $_GET['admin'];
             $change_role_query = "UPDATE users set user_role = 'Admin' where user_id = {$change_role_user_id}";
             $change_role_query_execute = mysqli_query($connection, $change_role_query);
-            header('location:users.php');
-
+            redirect('users.php');
         }
         if (isset($_GET['subscriber'])) {
 
             $change_role_user_id = $_GET['subscriber'];
             $change_role_query = "UPDATE users set user_role = 'Subscriber' where user_id = {$change_role_user_id}";
             $change_role_query_execute = mysqli_query($connection, $change_role_query);
-            header('location:users.php');
-
+            redirect('users.php');
         }
 
 

@@ -32,7 +32,8 @@ if (isset($_POST['update_profile'])) {
 		$update_user_query = "update `users` set `username`= '{$username}', `user_firstname`='{$user_firstname}', `user_lastname`='{$user_lastname}', `user_date`= '{$user_date}' , `user_role`='{$user_role}', `user_email`='{$user_email}', `user_password`='{$password}' where user_id={$update_user_id}";
 		$update_user_query_execute = mysqli_query($connection, $update_user_query);
 	}
-	header('location:profile+.php');
+	redirect('profile.php');
+
 }
 
 ?>
