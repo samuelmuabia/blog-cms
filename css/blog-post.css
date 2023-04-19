@@ -11,3 +11,7 @@ body {
 footer {
     margin: 50px 0;
 }
+.icons img{
+    width: 24px;
+    height: 24px;
+}

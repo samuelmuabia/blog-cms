@@ -42,8 +42,26 @@ if (isset($_POST['add_comment'])) {
             $post_content = $post['post_content'];
             $post_title = $post['post_title'];
             $post_title = $post['post_title'];
+            // Construct the URL of the current page
+            $base_url = 'http://127.0.0.1';
+            $current_url = $base_url . $_SERVER['REQUEST_URI'];
 
+            // Encode the URL for use in the share link
+            $encoded_url = urlencode($current_url);
+
+            // Fetch the image URL and description from the database (example only)
+            $current_post_image_url = 'http://example.com/image.jpg';
+            $current_post_description = 'Check out this awesome post!';
+
+            // Encode the image URL and description for use in the share link
+            $encoded_image_url = urlencode($current_post_image_url);
+            $encoded_description = urlencode($current_post_description);
+            $current_post_title = $post_title;
+            $current_post_text = $current_post_title . ' ' . $current_url;
+            $encoded_text = urlencode($current_post_text);
             ?>
+
+
             <!-- Blog Post -->
 
             <!-- Title -->
@@ -51,10 +69,24 @@ if (isset($_POST['add_comment'])) {
             </h1>
 
             <!-- Author -->
-            <p class="lead">
-                by <a class="text-decoration-none"
-                    href="/cms/author_post.php?author_name=<?php echo $post_author ?>&post_id=<?php echo $post_id ?>"><?php echo $post_author ?></a>
-            </p>
+            <div class="row row-cols-2">
+                <p class="lead">
+                    by <a class="text-decoration-none" href="/cms/author_post.php?author_name=<?php echo $post_author ?>&post_id=<?php echo $post_id ?>"><?php echo $post_author ?></a>
+                </p>
+                <div>
+                    Share This Post Via
+                    <div class="row row-cols-5 g-1">
+                        <a class="btn icons" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $encoded_url; ?>"><img src="/cms/images/icons/facebook.png" alt=""></a>
+                        <a class="btn icons" href="https://twitter.com/intent/tweet?url=<?php echo $encoded_url; ?>"><img src="/cms/images/icons/twitter.png" alt=""></a>
+                        <a class="btn icons " href="https://wa.me/?text=<?php echo $encoded_text; ?>"><img src="/cms/images/icons/whatsapp.png" alt=""></a>
+
+                        <a class="btn icons" href="mailto:?subject=Check out this post&amp;body=<?php echo $encoded_url; ?>"><img src="/cms/images/icons/gmail.png" alt=""></a>
+
+                        <a class="btn icons" href="https://pinterest.com/pin/create/button/?url=<?php echo $encoded_url; ?>&amp;media=<?php echo $encoded_image_url; ?>&amp;description=<?php echo $encoded_description; ?>"><img src="/cms/images/icons/pinterest.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+
 
             <hr>
 
@@ -74,45 +106,9 @@ if (isset($_POST['add_comment'])) {
             <p class="lead">
                 <?php echo $post_content ?>
             </p>
-            <?php
-            // Construct the URL of the current page
-            $base_url = 'http://localhost/cms';
-            $current_url = $base_url . $_SERVER['REQUEST_URI'];
-
-            // Encode the URL for use in the share link
-            $encoded_url = urlencode($current_url);
-
-            // Fetch the image URL and description from the database (example only)
-            $current_post_image_url = 'http://example.com/image.jpg';
-            $current_post_description = 'Check out this awesome post!';
-
-            // Encode the image URL and description for use in the share link
-            $encoded_image_url = urlencode($current_post_image_url);
-            $encoded_description = urlencode($current_post_description);
-            $current_post_title = $post_title;
-            $current_post_text = $current_post_title . ' ' . $current_url;
-            $encoded_text = urlencode($current_post_text);
-
-
-
-            ?>
 
             <!-- Add the Facebook share button to the page -->
-            <div class="row row-cols-4 g-3"></div>
-            <a class="btn btn-primary"
-                href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $encoded_url; ?>">Share on Facebook</a>
-            <a class="btn btn-primary" href="https://twitter.com/intent/tweet?url=<?php echo $encoded_url; ?>">Share on
-                Twitter</a>
-            <a class="btn btn-primary col" href="https://wa.me/?text=<?php echo $encoded_text; ?>">Share on WhatsApp</a>
 
-            <a class="btn btn-primary col"
-                href="mailto:?subject=Check out this post&amp;body=<?php echo $encoded_url; ?>">Share via Email</a>
-            <a class="btn btn-primary col" href="https://www.reddit.com/submit?url=<?php echo $encoded_url; ?>">Share on
-                Reddit</a>
-
-            <a class="btn btn-primary col"
-                href="https://pinterest.com/pin/create/button/?url=<?php echo $encoded_url; ?>&amp;media=<?php echo $encoded_image_url; ?>&amp;description=<?php echo $encoded_description; ?>">Share
-                on Pinterest</a>
             <hr>
 
             <!-- Blog Comments -->
@@ -150,7 +146,7 @@ if (isset($_POST['add_comment'])) {
                 $comment_author = $comment['comment_author'];
                 $comment_content = $comment['comment_content'];
                 $comment_date = $comment['comment_date'];
-                ?>
+            ?>
                 <div class="media">
                     <a class="pull-left" href="#">
                         <img class="media-object" src="http://placehold.it/64x64" alt="">
@@ -167,7 +163,7 @@ if (isset($_POST['add_comment'])) {
                         </p>
                     </div>
                 </div>
-                <?php
+            <?php
             } ?>
 
 
