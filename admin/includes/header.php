@@ -36,6 +36,7 @@ if (isset($_SESSION['user_role'])) {
   <title>Content Management System</title>
 
   <link href="css/app.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
 </head>
 <script src="../js/jquery.js"></script>

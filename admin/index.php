@@ -176,6 +176,7 @@ $number_of_categories = mysqli_num_rows($number_of_categories_query_execute);
           ]);
 
           var postsOptions = {
+            
             chart: {
               title: 'Posts',
               subtitle: 'Total , Draft and Published Posts',
@@ -194,16 +195,17 @@ $number_of_categories = mysqli_num_rows($number_of_categories_query_execute);
           var commentsData = google.visualization.arrayToDataTable([
             ['Comments ', 'Number'],
             <?php
-            echo "['Total Comments =  {$number_of_comments}'," . $number_of_comments . "],";
-            echo "['Approved Comments =  {$number_of_approve_comments}'," . $number_of_approve_comments . "],";
-            echo "['Pending Comments =  {$number_of_disapprove_comments}'," . $number_of_disapprove_comments . "]";
+            echo "['Approved'," . $number_of_approve_comments . "],";
+            echo "['Pending'," . $number_of_disapprove_comments . "]";
 
             ?>
 
           ]);
 
           var commentsOptions = {
+            
             title: 'Comments',
+            subtitle: 'Comments',
             pieHole: 0.5,
           };
 
@@ -266,20 +268,19 @@ $number_of_categories = mysqli_num_rows($number_of_categories_query_execute);
       </script>
       </script>
 
-      <div class="d-flex col-lg-6 col-md-12 mb-3">
-        <div id="posts_columnchart_material" style="width: auto; height: 500px;"></div>
+      <div class="d-flex col-lg-6 col-md-12 mb-3 p-3">
+        <div id="posts_columnchart_material" class="p-3 m-3" style="width: auto; height: 500px; background-color: #fff;"></div>
       </div>
-      <div class="d-flex col-lg-6 col-md-12 mb-3">
+      <div class="d-flex col-lg-6 col-md-12 mb-3 p-3">
         <div id="comments_donutchart" style="width: auto; height: 500px;"></div>
       </div>
-      <div class="d-flex col-lg-6 col-md-12 mb-3">
+      <div class="d-flex col-lg-6 col-md-12 mb-3 p-3">
         <div id="users_piechart_3d" style="width: auto; height: 500px;"></div>
       </div>
-      <div class="d-flex col-lg-6 col-md-12 mb-3">
-        <div id="categories_table_div" style="width: auto; height: 500px;"></div>
+      <div class="d-flex col-lg-6 col-md-12 mb-3 p-3">
+        <div id="categories_table_div" style="width: 400px; height: 500px;"></div>
       </div>
 
-      <?php echo $number_of_disapprove_comments ?>
 
     </div>
 
