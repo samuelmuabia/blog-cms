@@ -71,6 +71,12 @@ if (isset($_POST['add_comment'])) {
             <p class="lead"><?php echo  $post_content ?></p>
 
 
+
+
+
+
+
+            <!-- Comment -->
             <hr>
 
             <!-- Blog Comments -->
