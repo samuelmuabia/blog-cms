@@ -42,8 +42,26 @@ if (isset($_POST['add_comment'])) {
             $post_content = $post['post_content'];
             $post_title = $post['post_title'];
             $post_title = $post['post_title'];
+            // Construct the URL of the current page
+            $base_url = 'http://127.0.0.1';
+            $current_url = $base_url . $_SERVER['REQUEST_URI'];
 
+            // Encode the URL for use in the share link
+            $encoded_url = urlencode($current_url);
+
+            // Fetch the image URL and description from the database (example only)
+            $current_post_image_url = 'http://example.com/image.jpg';
+            $current_post_description = 'Check out this awesome post!';
+
+            // Encode the image URL and description for use in the share link
+            $encoded_image_url = urlencode($current_post_image_url);
+            $encoded_description = urlencode($current_post_description);
+            $current_post_title = $post_title;
+            $current_post_text = $current_post_title . ' ' . $current_url;
+            $encoded_text = urlencode($current_post_text);
             ?>
+
+
             <!-- Blog Post -->
 
             <!-- Title -->
@@ -51,25 +69,45 @@ if (isset($_POST['add_comment'])) {
             </h1>
 
             <!-- Author -->
-            <p class="lead">
-                by <a class="text-decoration-none" href="/cms/author_post.php?author_name=<?php echo  $post_author ?>&post_id=<?php echo  $post_id ?>"><?php echo  $post_author ?></a>
-            </p>
+            <div class="row row-cols-2">
+                <p class="lead">
+                    by <a class="text-decoration-none" href="/cms/author_post.php?author_name=<?php echo $post_author ?>&post_id=<?php echo $post_id ?>"><?php echo $post_author ?></a>
+                </p>
+                <div>
+                    Share This Post Via
+                    <div class="row row-cols-5 g-1">
+                        <a class="btn icons" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $encoded_url; ?>"><img src="/cms/images/icons/facebook.png" alt=""></a>
+                        <a class="btn icons" href="https://twitter.com/intent/tweet?url=<?php echo $encoded_url; ?>"><img src="/cms/images/icons/twitter.png" alt=""></a>
+                        <a class="btn icons " href="https://wa.me/?text=<?php echo $encoded_text; ?>"><img src="/cms/images/icons/whatsapp.png" alt=""></a>
+
+                        <a class="btn icons" href="mailto:?subject=Check out this post&amp;body=<?php echo $encoded_url; ?>"><img src="/cms/images/icons/gmail.png" alt=""></a>
+
+                        <a class="btn icons" href="https://pinterest.com/pin/create/button/?url=<?php echo $encoded_url; ?>&amp;media=<?php echo $encoded_image_url; ?>&amp;description=<?php echo $encoded_description; ?>"><img src="/cms/images/icons/pinterest.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+
 
             <hr>
 
             <!-- Date/Time -->
-            <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo  $post_date ?></p>
+            <p><span class="glyphicon glyphicon-time"></span> Posted on
+                <?php echo $post_date ?>
+            </p>
 
             <hr>
 
             <!-- Preview Image -->
-            <img class="img-fluid" src="/cms/images/<?php echo  $post_image ?>" alt="">
+            <img class="img-fluid" src="/cms/images/<?php echo $post_image ?>" alt="">
 
             <hr>
 
             <!-- Post Content -->
-            <p class="lead"><?php echo  $post_content ?></p>
+            <p class="lead">
+                <?php echo $post_content ?>
+            </p>
 
+            <!-- Add the Facebook share button to the page -->
 
 
 
@@ -120,10 +158,15 @@ if (isset($_POST['add_comment'])) {
                         <img class="media-object" src="http://placehold.it/64x64" alt="">
                     </a>
                     <div class="media-body">
-                        <h4 class="media-heading"><?php echo $comment_author ?>
-                            <small><?php echo $comment_date ?></small>
+                        <h4 class="media-heading">
+                            <?php echo $comment_author ?>
+                            <small>
+                                <?php echo $comment_date ?>
+                            </small>
                         </h4>
-                        <p><?php echo $comment_content ?></p>
+                        <p>
+                            <?php echo $comment_content ?>
+                        </p>
                     </div>
                 </div>
             <?php

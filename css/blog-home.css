@@ -18,3 +18,8 @@ footer {
 /* .pager li a .active{
     background: black !important ;
 } */
+
+.icons img{
+    width: 24px;
+    height: 24px;
+}
