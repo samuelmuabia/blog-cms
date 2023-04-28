@@ -43,6 +43,10 @@
                             echo " <li class='nav-item'><a class='nav-link' href='/cms/admin/posts.php?source=edit_post&edit={$post_id}'>Edit Post</a></li>";
                         }
                     }
+                    else{
+                        echo "<li class='nav-item' ><a class='nav-link' href='/cms/admin'>Manage Content</a></li>";
+
+                    }
                 } else {
                     echo "<li class='nav-item' ><a class='nav-link disabled' href='/cms/admin'>Admin</a></li>";
                 }

@@ -107,14 +107,6 @@ if (isset($_POST['add_comment'])) {
                 <?php echo $post_content ?>
             </p>
 
-            <!-- Add the Facebook share button to the page -->
-
-
-
-
-
-
-            <!-- Comment -->
             <hr>
 
             <!-- Blog Comments -->

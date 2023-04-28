@@ -1,4 +1,7 @@
 <?php
+if(!isLoggedInAsAdmin()){
+    redirect('index.php');
+}
 if (isset($_GET['edit'])) {
     $edit_user_id = $_GET['edit'];
     $search_user_query = "select * from users where user_id ={$edit_user_id}";

@@ -4,50 +4,71 @@
 <?php include('includes/navbar.php') ?>
 <?php
 
+if (isset($_SESSION['user_role'])) {
+  if ($_SESSION['user_role'] == 'Admin') {
 
-$number_of_posts_query = 'SELECT * from posts';
-$number_of_posts_query_execute = mysqli_query($connection, $number_of_posts_query);
-$number_of_posts = mysqli_num_rows($number_of_posts_query_execute);
+    $number_of_posts_query = 'SELECT * from posts';
+    $number_of_posts_query_execute = mysqli_query($connection, $number_of_posts_query);
+    $number_of_posts = mysqli_num_rows($number_of_posts_query_execute);
 
-$number_of_draft_posts_query = "SELECT * from posts where post_status='draft'";
-$number_of_draft_posts_query_execute = mysqli_query($connection, $number_of_draft_posts_query);
-$number_of_draft_posts = mysqli_num_rows($number_of_draft_posts_query_execute);
+    $number_of_draft_posts_query = "SELECT * from posts where post_status='draft'";
+    $number_of_draft_posts_query_execute = mysqli_query($connection, $number_of_draft_posts_query);
+    $number_of_draft_posts = mysqli_num_rows($number_of_draft_posts_query_execute);
 
-$number_of_publish_posts_query = "SELECT * from posts where post_status='published'";
-$number_of_publish_posts_query_execute = mysqli_query($connection, $number_of_publish_posts_query);
-$number_of_publish_posts = mysqli_num_rows($number_of_publish_posts_query_execute);
-
-
-$number_of_comments_query = 'SELECT * from comments';
-$number_of_comments_query_execute = mysqli_query($connection, $number_of_comments_query);
-$number_of_comments = mysqli_num_rows($number_of_comments_query_execute);
-
-$number_of_approve_comments_query = "SELECT * from comments where comment_status ='approved'";
-$number_of_approve_comments_query_execute = mysqli_query($connection, $number_of_approve_comments_query);
-$number_of_approve_comments = mysqli_num_rows($number_of_approve_comments_query_execute);
-
-$number_of_disapprove_comments_query = "SELECT * from comments where comment_status ='disapproved'";
-$number_of_disapprove_comments_query_execute = mysqli_query($connection, $number_of_disapprove_comments_query);
-$number_of_disapprove_comments = mysqli_num_rows($number_of_disapprove_comments_query_execute);
+    $number_of_publish_posts_query = "SELECT * from posts where post_status='published'";
+    $number_of_publish_posts_query_execute = mysqli_query($connection, $number_of_publish_posts_query);
+    $number_of_publish_posts = mysqli_num_rows($number_of_publish_posts_query_execute);
 
 
+    $number_of_comments_query = 'SELECT * from comments';
+    $number_of_comments_query_execute = mysqli_query($connection, $number_of_comments_query);
+    $number_of_comments = mysqli_num_rows($number_of_comments_query_execute);
 
-$number_of_users_query = 'SELECT * from users';
-$number_of_users_query_execute = mysqli_query($connection, $number_of_users_query);
-$number_of_users = mysqli_num_rows($number_of_users_query_execute);
+    $number_of_approve_comments_query = "SELECT * from comments where comment_status ='approved'";
+    $number_of_approve_comments_query_execute = mysqli_query($connection, $number_of_approve_comments_query);
+    $number_of_approve_comments = mysqli_num_rows($number_of_approve_comments_query_execute);
 
-$number_of_admin_users_query = "SELECT * from users where user_role= 'Admin'";
-$number_of_admin_users_query_execute = mysqli_query($connection, $number_of_admin_users_query);
-$number_of_admin_users = mysqli_num_rows($number_of_admin_users_query_execute);
-
-$number_of_subsriber_users_query = "SELECT * from users where user_role= 'Subscriber'";
-$number_of_subsriber_users_query_execute = mysqli_query($connection, $number_of_subsriber_users_query);
-$number_of_subsriber_users = mysqli_num_rows($number_of_subsriber_users_query_execute);
+    $number_of_disapprove_comments_query = "SELECT * from comments where comment_status ='disapproved'";
+    $number_of_disapprove_comments_query_execute = mysqli_query($connection, $number_of_disapprove_comments_query);
+    $number_of_disapprove_comments = mysqli_num_rows($number_of_disapprove_comments_query_execute);
 
 
-$number_of_categories_query = 'SELECT * from categories';
-$number_of_categories_query_execute = mysqli_query($connection, $number_of_categories_query);
-$number_of_categories = mysqli_num_rows($number_of_categories_query_execute);
+
+    $number_of_users_query = 'SELECT * from users';
+    $number_of_users_query_execute = mysqli_query($connection, $number_of_users_query);
+    $number_of_users = mysqli_num_rows($number_of_users_query_execute);
+
+    $number_of_admin_users_query = "SELECT * from users where user_role= 'Admin'";
+    $number_of_admin_users_query_execute = mysqli_query($connection, $number_of_admin_users_query);
+    $number_of_admin_users = mysqli_num_rows($number_of_admin_users_query_execute);
+
+    $number_of_subsriber_users_query = "SELECT * from users where user_role= 'Subscriber'";
+    $number_of_subsriber_users_query_execute = mysqli_query($connection, $number_of_subsriber_users_query);
+    $number_of_subsriber_users = mysqli_num_rows($number_of_subsriber_users_query_execute);
+
+
+    $number_of_categories_query = 'SELECT * from categories';
+    $number_of_categories_query_execute = mysqli_query($connection, $number_of_categories_query);
+    $number_of_categories = mysqli_num_rows($number_of_categories_query_execute);
+  } else if ($_SESSION['user_role'] == 'Subscriber') {
+    $username = $_SESSION['username'];
+    $number_of_posts_query = "SELECT * from posts where post_author = '{$username}'";
+    $number_of_posts_query_execute = mysqli_query($connection, $number_of_posts_query);
+    $number_of_posts = mysqli_num_rows($number_of_posts_query_execute);
+
+    $number_of_draft_posts_query = "SELECT * from posts where post_status='draft' and post_author = '{$username}'";
+    $number_of_draft_posts_query_execute = mysqli_query($connection, $number_of_draft_posts_query);
+    $number_of_draft_posts = mysqli_num_rows($number_of_draft_posts_query_execute);
+
+    $number_of_publish_posts_query = "SELECT * from posts where post_status='published' and post_author = '{$username}'";
+    $number_of_publish_posts_query_execute = mysqli_query($connection, $number_of_publish_posts_query);
+    $number_of_publish_posts = mysqli_num_rows($number_of_publish_posts_query_execute);
+
+    $number_of_categories_query = 'SELECT * from categories';
+    $number_of_categories_query_execute = mysqli_query($connection, $number_of_categories_query);
+    $number_of_categories = mysqli_num_rows($number_of_categories_query_execute);
+  }
+}
 
 
 ?>
@@ -83,52 +104,57 @@ $number_of_categories = mysqli_num_rows($number_of_categories_query_execute);
                 </div>
               </div>
             </div>
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col mt-0">
-                      <h5 class="card-title">Comments</h5>
-                    </div>
+            <?php
+            if ($_SESSION['user_role'] == 'Admin') { ?>
+              <div class="col-sm-6">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col mt-0">
+                        <h5 class="card-title">Comments</h5>
+                      </div>
 
-                    <div class="col-auto">
-                      <div class="stat text-primary">
-                        <i class="align-middle" data-feather="message-circle"></i>
+                      <div class="col-auto">
+                        <div class="stat text-primary">
+                          <i class="align-middle" data-feather="message-circle"></i>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <h1 class="mt-1 mb-3"><?php echo $number_of_comments ?></h1>
-                  <div class="mb-0">
-                    <span class="text-info">
-                      <i class="align-middle" data-feather="arrow-right"></i><a href="comments.php">View Details</a>
-                    </span>
+                    <h1 class="mt-1 mb-3"><?php echo $number_of_comments ?></h1>
+                    <div class="mb-0">
+                      <span class="text-info">
+                        <i class="align-middle" data-feather="arrow-right"></i><a href="comments.php">View Details</a>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col mt-0">
-                      <h5 class="card-title">Users</h5>
-                    </div>
+              <div class="col-sm-6">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col mt-0">
+                        <h5 class="card-title">Users</h5>
+                      </div>
 
-                    <div class="col-auto">
-                      <div class="stat text-primary">
-                        <i class="align-middle" data-feather="user"></i>
+                      <div class="col-auto">
+                        <div class="stat text-primary">
+                          <i class="align-middle" data-feather="user"></i>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <h1 class="mt-1 mb-3"><?php echo $number_of_users ?></h1>
-                  <div class="mb-0">
-                    <span class="text-info">
-                      <i class="align-middle" data-feather="arrow-right"></i><a href="users.php">View Details</a>
-                    </span>
+                    <h1 class="mt-1 mb-3"><?php echo $number_of_users ?></h1>
+                    <div class="mb-0">
+                      <span class="text-info">
+                        <i class="align-middle" data-feather="arrow-right"></i><a href="users.php">View Details</a>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            <?php
+            }
+            ?>
             <div class="col-sm-6">
               <div class="card">
                 <div class="card-body">
@@ -144,11 +170,26 @@ $number_of_categories = mysqli_num_rows($number_of_categories_query_execute);
                     </div>
                   </div>
                   <h1 class="mt-1 mb-3"><?php echo $number_of_categories ?></h1>
-                  <div class="mb-0">
+                  <?php
+                  if(isLoggedInAsAdmin()){
+                    ?>
+                    <div class="mb-0">
                     <span class="text-info">
                       <i class="align-middle" data-feather="arrow-right"></i><a href="categories.php">View Details</a>
                     </span>
                   </div>
+                  <?php
+                  }else{?>
+                  <div class="mb-0">
+                    <span class="text-info">
+                      <i class="align-middle" data-feather="arrow-right"></i><a href="#categories_table_div">View Details</a>
+                    </span>
+                  </div>
+                  <?php
+
+                  }
+                  ?>
+
                 </div>
               </div>
             </div>
@@ -176,7 +217,7 @@ $number_of_categories = mysqli_num_rows($number_of_categories_query_execute);
           ]);
 
           var postsOptions = {
-            
+
             chart: {
               title: 'Posts',
               subtitle: 'Total , Draft and Published Posts',
@@ -189,49 +230,60 @@ $number_of_categories = mysqli_num_rows($number_of_categories_query_execute);
         }
 
         // Comments Chart
-        google.charts.setOnLoadCallback(drawCommentsChart);
+        <?php
+        if ($_SESSION['user_role'] == 'Admin') {
+        ?>
+        
+          // Users Chart
 
-        function drawCommentsChart() {
-          var commentsData = google.visualization.arrayToDataTable([
-            ['Comments ', 'Number'],
-            <?php
-            echo "['Approved'," . $number_of_approve_comments . "],";
-            echo "['Pending'," . $number_of_disapprove_comments . "]";
+          google.charts.setOnLoadCallback(drawUsersChart);
 
-            ?>
+          function drawUsersChart() {
+            var usersData = google.visualization.arrayToDataTable([
+              ['Users', 'Number of Users'],
+              ['Subscriber', <?php echo $number_of_subsriber_users ?>],
+              ['Admin', <?php echo $number_of_admin_users ?>]
+            ]);
 
-          ]);
+            var options = {
+              title: 'Users',
+              is3D: true,
+            };
 
-          var commentsOptions = {
-            
-            title: 'Comments',
-            subtitle: 'Comments',
-            pieHole: 0.5,
-          };
+            var usersChart = new google.visualization.PieChart(document.getElementById('users_piechart_3d'));
+            usersChart.draw(usersData, options);
 
-          var commentsChart = new google.visualization.PieChart(document.getElementById('comments_donutchart'));
-          commentsChart.draw(commentsData, commentsOptions);
+          }
+
+          google.charts.setOnLoadCallback(drawCommentsChart);
+         
+          function drawCommentsChart() {
+            var commentsData = google.visualization.arrayToDataTable([
+              ['Comments ', 'Number'],
+              <?php
+              echo "['Approved'," . $number_of_approve_comments . "],";
+              echo "['Pending'," . $number_of_disapprove_comments . "]";
+
+              ?>
+
+            ]);
+
+            var commentsOptions = {
+
+              title: 'Comments',
+              subtitle: 'Comments',
+              pieHole: 0.5,
+            };
+
+            var commentsChart = new google.visualization.PieChart(document.getElementById('comments_donutchart'));
+            commentsChart.draw(commentsData, commentsOptions);
+          }
+
+        <?php
+
+
         }
-        // Users Chart 
-
-        google.charts.setOnLoadCallback(drawUsersChart);
-
-        function drawUsersChart() {
-          var usersData = google.visualization.arrayToDataTable([
-            ['Users', 'Number of Users'],
-            ['Subscriber', <?php echo $number_of_subsriber_users ?>],
-            ['Admin', <?php echo $number_of_admin_users ?>]
-          ]);
-
-          var options = {
-            title: 'Users',
-            is3D: true,
-          };
-
-          var usersChart = new google.visualization.PieChart(document.getElementById('users_piechart_3d'));
-          usersChart.draw(usersData, options);
-
-        }
+        ?>
 
         // Categories Chart
         google.charts.setOnLoadCallback(drawCategoriesTable);
@@ -266,17 +318,23 @@ $number_of_categories = mysqli_num_rows($number_of_categories_query_execute);
           });
         }
       </script>
-      </script>
 
       <div class="d-flex col-lg-6 col-md-12 mb-3 p-3">
-        <div id="posts_columnchart_material" class="p-3 m-3" style="width: auto; height: 500px; background-color: #fff;"></div>
+        <div id="posts_columnchart_material" class="p-3 m-3" style="width: 400px; height: 500px; background-color: #fff;"></div>
       </div>
-      <div class="d-flex col-lg-6 col-md-12 mb-3 p-3">
+      <?php
+if($_SESSION['user_role']=='Admin'){
+  ?>
+  <div class="d-flex col-lg-6 col-md-12 mb-3 p-3">
         <div id="comments_donutchart" style="width: auto; height: 500px;"></div>
       </div>
       <div class="d-flex col-lg-6 col-md-12 mb-3 p-3">
         <div id="users_piechart_3d" style="width: auto; height: 500px;"></div>
       </div>
+<?php
+    }
+
+?>
       <div class="d-flex col-lg-6 col-md-12 mb-3 p-3">
         <div id="categories_table_div" style="width: 400px; height: 500px;"></div>
       </div>

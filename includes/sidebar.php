@@ -25,8 +25,12 @@
         <?php
         if (isset($_SESSION['username'])) {
             $username = $_SESSION['username'];
-            echo "<h2>Logged in as {$username}</h2>";
-            echo "<a class='btn btn-primary' href='includes/logout.php'>Logout</a>";
+            $user_role = $_SESSION['user_role'];
+            echo "<h2>Logged in as {$username}, <small>({$user_role})</small></h2>";
+            echo "<a class='btn btn-primary mt-4 mb-2 me-3' href='./admin/posts.php'>Manage Posts</a>";
+            echo "<a class='btn btn-warning mt-4 mb-2 ms-3' href='./admin/posts.php?source=add_post'>Add Post</a><br>";
+            echo "<a class='btn btn-info mb-2' href='./admin'>Analytical Views</a><br>";
+            echo "<a class='btn btn-danger' href='includes/logout.php'>Logout</a>";
         } else {
         ?>
             <h4>Login</h4>

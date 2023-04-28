@@ -1,4 +1,7 @@
 <?php
+if(!isLoggedInAsAdmin()){
+    redirect('index.php');
+}
 if (isset($_POST['create_user'])) {
     $username = $_POST['username'];
     $user_firstname = $_POST['user_firstname'];

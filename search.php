@@ -11,6 +11,11 @@
             <?php
             if (isset($_POST['search'])) {
                 $searched_text = $_POST['search-text'];
+                if($searched_text==''){
+                   redirect('index');
+
+                }
+                else{
                 $search_query = "select * from posts where post_tags LIKE '%$searched_text%'";
                 $search_query_results = mysqli_query($connection, $search_query);
                 $number_of_posts = mysqli_num_rows($search_query_results);
@@ -45,7 +50,7 @@
             <?php
                     }
                 }
-            } else {
+            } }else {
                 redirect('/cms/');
             }
             ?>

@@ -19,6 +19,9 @@
         </thead>
         <tbody>
             <?php
+            if(!isLoggedInAsAdmin()){
+                redirect('index.php');
+            }
             $select_users_query = "select * from users";
             $select_users_results = mysqli_query($connection, $select_users_query);
             while ($user = mysqli_fetch_assoc($select_users_results)) {

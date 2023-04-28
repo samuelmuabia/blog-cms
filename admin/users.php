@@ -1,5 +1,8 @@
-<?php include('includes/header.php') ?>
-<?php include('includes/navbar.php') ?>
+<?php  include('includes/header.php') ?>
+<?php include('includes/navbar.php');
+if(!isLoggedInAsAdmin()){
+    redirect('index.php');
+} ?>
 
 <div class="ps-3 pe-3 mt-2">
 

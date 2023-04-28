@@ -17,6 +17,9 @@
     </thead>
     <tbody>
         <?php
+        if(!isLoggedInAsAdmin()){
+            redirect('index.php');
+        }
         $select_comments_query = "select * from comments";
         $select_comments_results = mysqli_query($connection, $select_comments_query);
         while ($comment = mysqli_fetch_assoc($select_comments_results)) {

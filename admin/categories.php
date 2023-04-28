@@ -1,5 +1,8 @@
 <?php include('includes/header.php') ?>
-<?php include('includes/navbar.php') ?>
+<?php include('includes/navbar.php');
+if(!isLoggedInAsAdmin()){
+    redirect('index.php');
+} ?>
 
 <main class="content">
 	<div class="container-fluid p-0">

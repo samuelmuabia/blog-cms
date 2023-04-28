@@ -33,7 +33,6 @@ if (isset($_POST['update_profile'])) {
 		$update_user_query_execute = mysqli_query($connection, $update_user_query);
 	}
 	redirect('profile.php');
-
 }
 
 ?>
@@ -54,7 +53,7 @@ if (isset($_POST['update_profile'])) {
 						<img src="img/avatars/avatar.jpg" alt="" class="img-fluid rounded-circle mb-2" width="128" height="128" />
 						<h5 class="card-title mb-0"></h5>
 						<div class="text-muted mb-2"><?php echo $user_role ?></div>
-						<div class="text-muted mb-2"><?php echo $user_firstname . $user_lastname ?></div>
+						<div class="text-muted mb-2"><?php echo $user_firstname ." ". $user_lastname ?></div>
 						<form action="" method="post">
 							<div>
 								<input class="btn btn-primary btn-sm" name="edit-profile" type="submit" value="Edit Details" />
@@ -70,7 +69,7 @@ if (isset($_POST['update_profile'])) {
 				</div>
 				<?php
 				if (isset($_POST['edit-profile'])) {
-					 ?>
+				?>
 
 					<form class="mt-4" action="" method="post" enctype="multipart/form-data">
 
@@ -88,17 +87,30 @@ if (isset($_POST['update_profile'])) {
 						</div>
 						<div class="form-group">
 							<label for="user_role">Role</label>
-							<select class="form-select" name="user_role" id="">
-								<option value="<?php echo $user_role ?>"><?php echo $user_role ?></option>
-								<?php
-								if ($user_role == 'Admin') {
-									echo "<option value='Subscriber'>Subscriber</option>";
-								} else {
-									echo "<option value='Admin'>Admin</option>";
-								}
-								?>
+							<?php
+							if (!isLoggedInAsAdmin()) {
+							?>
 
-							</select>
+								<input type="text" value="<?php echo $user_role ?>" disabled>
+							<?php
+							} else {
+							?>
+								<select class="form-select" name="user_role" id="">
+									<option value="<?php echo $user_role ?>"><?php echo $user_role ?></option>
+									<?php
+									if ($user_role == 'Admin') {
+										echo "<option value='Subscriber'>Subscriber</option>";
+									} else {
+										echo "<option value='Admin'>Admin</option>";
+									}
+									?>
+
+								</select>
+							<?php
+							}
+							?>
+
+
 						</div>
 						<div class="form-group">
 							<label for="user_author">Email</label>

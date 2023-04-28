@@ -1,9 +1,28 @@
 <?php
 if (isset($_GET['edit'])) {
     $edit_post_id = $_GET['edit'];
-    $search_post_query = "select * from posts where post_id ={$edit_post_id}";
-    $search_post_query_execute = mysqli_query($connection, $search_post_query);
-    $search_post_query_results = mysqli_fetch_assoc($search_post_query_execute);
+    $username = $_SESSION['username'];
+    echo $username;
+    $user_role = $_SESSION['user_role'];
+    if(isLoggedInAsAdmin()){
+        $search_post_query = "select * from posts where post_id ={$edit_post_id}";
+        $search_post_query_execute = mysqli_query($connection, $search_post_query);
+        $search_post_query_results = mysqli_fetch_assoc($search_post_query_execute);
+    }
+    else{
+        $search_post_query = "SELECT * from posts where post_id ={$edit_post_id} and post_author = '{$username}' ";
+        $search_post_query_execute = mysqli_query($connection, $search_post_query);
+        $search_post_query_results = mysqli_num_rows($search_post_query_execute);
+        if($search_post_query_results==0){
+            redirect('posts.php');
+        }
+        else{
+            $search_post_query_results = mysqli_fetch_assoc($search_post_query_execute);
+
+        }
+
+    }
+
     $post_title = $search_post_query_results['post_title'];
     $post_author = $search_post_query_results['post_author'];
     $post_content = $search_post_query_results['post_content'];

@@ -1,5 +1,3 @@
-
-
 <nav id="sidebar" class="sidebar js-sidebar">
   <div class="sidebar-content js-simplebar">
     <a class="sidebar-brand" href="index.php">
@@ -15,43 +13,51 @@
           <span class="align-middle">Dashboard</span>
         </a>
       </li>
-
-      <li class="sidebar-item dropdown">
-        <a class="sidebar-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="align-middle" data-feather="book"></i>
-        <span class="align-middle">Posts</span>
-
-          
+      <li class="sidebar-item ">
+        <a class="sidebar-link" href="posts.php">
+          <i class="align-middle" data-feather="book"></i>
+          <span class="align-middle">Manage Posts</span>
         </a>
-        <ul class="dropdown-menu">
-          <li class="sidebar-item"><a class="sidebar-link" href="posts.php">View All Posts</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="posts.php?source=add_post">Add Posts</a></li>
-        </ul>
       </li>
-      <li class="sidebar-item dropdown">
+      <li class="sidebar-item ">
+        <a class="sidebar-link" href="posts.php?source=add_post">
+          <i class="align-middle" data-feather="edit"></i>
+          <span class="align-middle">Add New Post</span>
+        </a>
+      </li>
+  
+      <?php
+      if (isLoggedInAsAdmin()) {
+      ?>
+       <li class="sidebar-item dropdown">
         <a class="sidebar-link" href="categories.php">
           <i class="align-middle" data-feather="book"></i>
           <span class="align-middle">categories</span>
         </a>
       </li>
+        <li class="sidebar-item dropdown">
+          <a class="sidebar-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="align-middle" data-feather="user"></i>
+            <span class="align-middle">Users</span>
 
-      <li class="sidebar-item dropdown">
-        <a class="sidebar-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="align-middle" data-feather="user"></i>
-        <span class="align-middle">Users</span>
-          
-        </a>
-        <ul class="dropdown-menu">
-          <li class="sidebar-item"><a class="sidebar-link" href="users.php">View All Users</a></li>
-          <li class="sidebar-item"><a class="sidebar-link" href="users.php?source=add_user">Add User</a></li>
-        </ul>
-      </li>
-      <li class="sidebar-item">
-        <a class="sidebar-link" href="comments.php">
-          <i class="align-middle" data-feather="message-circle"></i>
-          <span class="align-middle">Comments</span>
-        </a>
-      </li>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="sidebar-item"><a class="sidebar-link" href="users.php">View All Users</a></li>
+            <li class="sidebar-item"><a class="sidebar-link" href="users.php?source=add_user">Add User</a></li>
+          </ul>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="comments.php">
+            <i class="align-middle" data-feather="message-circle"></i>
+            <span class="align-middle">Comments</span>
+          </a>
+        </li>
+        
+      <?php
+      }
+
+      ?>
+
 
     </ul>
   </div>
@@ -82,7 +88,7 @@
           <div class="dropdown-menu dropdown-menu-end">
             <a class="dropdown-item" href="profile.php"><i class="align-middle me-1" data-feather="user"></i>
               Profile</a>
-            <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i>
+            <a class="dropdown-item" href="index.php"><i class="align-middle me-1" data-feather="pie-chart"></i>
               Analytics</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="profile.php"><i class="align-middle me-1" data-feather="settings"></i>

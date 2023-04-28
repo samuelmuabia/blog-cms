@@ -80,7 +80,15 @@ if (isset($_POST['checkBoxArray'])) {
             </thead>
             <tbody>
                 <?php
-                $select_posts_query = "SELECT p.post_id,p.post_title,p.post_author,p.post_status,p.post_date,p.post_date,p.post_image,p.post_tags,p.post_views_count,c.cat_title from posts as p INNER JOIN categories as c ON p.post_category_id=c.cat_id order by post_id  DESC";
+                
+                if ($_SESSION['user_role'] == 'Admin') {
+
+                    $select_posts_query = "SELECT p.post_id,p.post_title,p.post_author,p.post_status,p.post_date,p.post_date,p.post_image,p.post_tags,p.post_views_count,c.cat_title from posts as p INNER JOIN categories as c ON p.post_category_id=c.cat_id order by post_id  DESC";
+                } else {
+                    $username = $_SESSION['username'];
+
+                    $select_posts_query = "SELECT p.post_id,p.post_title,p.post_author,p.post_status,p.post_date,p.post_date,p.post_image,p.post_tags,p.post_views_count,c.cat_title from posts as p INNER JOIN categories as c ON p.post_category_id=c.cat_id where post_author = '{$username}'  order by post_id  DESC ";
+                }
                 $select_posts_results = mysqli_query($connection, $select_posts_query);
                 while ($post = mysqli_fetch_assoc($select_posts_results)) {
                     $post_id = $post['post_id'];
@@ -121,4 +129,3 @@ if (isset($_POST['checkBoxArray'])) {
         </table>
     </div>
 </form>
-
